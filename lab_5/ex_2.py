@@ -1,6 +1,6 @@
 import os
 
-class SimpleDatabase:
+class Redis:
     def __init__(self, db_filename='database.txt', index_filename='index.txt'):
         self.db_filename = db_filename
         self.index_filename = index_filename
@@ -52,12 +52,34 @@ class SimpleDatabase:
             line = f.readline().strip()
             print(line)
 
-db = SimpleDatabase()
+'''
+общая суть: у нас есть бд, которая сохраняет данные между запусками программы. 
+1) если индекс существует (в файле index), то из него берутся данные, которые содержат ссылку на позицию куда записывать данные в бд
+2) при add значения проверяется есть ли значение в индексе (который словарь (в оперативке)). если есть - еррор, иначе добавляется.
+3)delete update  в целом аналогично
+'''
 
-db.add("key1", "value1")
-db.add("key2", "value2")
-db.print("key1")
-db.update("key1", "new_value1")
-db.print("key1")
-db.delete("key2")
-db.print("key2")
+
+def test_database_operations():
+    db = Redis()
+
+    db.add("key1", "value1")
+    db.add("key2", "value2")
+
+    db.print("key1")
+
+    db.update("key1", "new_value1")
+    db.print("key1")
+
+    db.delete("key2")
+    db.print("key2")
+
+    db.add("key1", "another_value")
+
+    db.delete("key3")
+
+    db.update("key3", "new_value")
+
+    db.print("key1")
+
+test_database_operations()

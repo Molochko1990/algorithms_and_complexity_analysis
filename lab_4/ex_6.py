@@ -1,4 +1,4 @@
-def can_divide_chapters(chapters, max_pages, k):
+def can_divide_chapters(chapters, max_pages, k): # смотрит на какое кол-во томов можно разделить чтобы не превышало изначальное K томов а также максимальное значение всех страниц
     current_sum = 0
     required_volumes = 1
 
@@ -14,7 +14,7 @@ def can_divide_chapters(chapters, max_pages, k):
     return True
 
 
-def find_min_max_volume(chapters, k):
+def find_min_max_volume(chapters, k): # тут используется бинарный поиск
     left = max(chapters) # глава с максимальным кол-вом страниц
     right = sum(chapters) # общая сумма страниц всех глав
 
